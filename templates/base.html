@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        <style>
+            p {
+                text-align: center;
+            }
+            h1 {
+                text-align: center;
+                color: steelblue;
+            }
+            h2 {
+                text-align: center;
+                color: steelblue;
+            }
+            form {
+                background-color: #eee;
+                padding: 20px;
+                margin: 0 auto;
+                width: 540px;
+                font: 16px sans-serif;
+                border-radius: 10px;
+            }
+            textarea {
+                margin: 10px 0;
+                width: 540px;
+                height: 120px;
+            }
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+<body>
+    <h1>So she said "Blog, blog, blog..."</h1>
+    <p>
+        <a href="/blog">Blog Entries</a>
+        &nbsp &nbsp &nbsp &nbsp &nbsp 
+        <a href="/blogentry">Add a Post</a>
+    </p>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

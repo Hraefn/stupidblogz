@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for entry in entries %}
+    <h2> 
+        <a href="./blog?id={{entry.id}}">
+             {{ entry.name }}
+        </a>
+    </h2>
+    <p> 
+        {{ entry.content }}
+        <br>
+        <br>
+        <br>
+        <br>
+        <img src="http://www.urbanthreads.com/productImages/regularSize/UTH1105.jpg">
+        <br>
+        <br>
+        <br>
+    </p>
+    {% endfor %}
+
+    {{ qry }}
+    
+
+{% endblock %}
