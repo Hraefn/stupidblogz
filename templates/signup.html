@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<h2>Register For An Account Here</h2>
+<form action="/signup" method="post">
+    <table>
+        <tr>
+            <td><label for="email">Email</label></td>
+            <td>
+                <input name="email" type="email" value="{{ email }}">
+            </td>
+        </tr>
+        <tr>
+            <td><label for="password">Password</label></td>
+            <td>
+                <input name="password" type="password">
+            </td>
+        </tr>            
+        <tr>
+            <td><label for="verify">Verify Password</label></td>
+            <td>
+                <input name="verify" type="password">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Signup">
+            </td>
+        </tr>
+
+    </table>
+</form>
+        
+{% endblock %}

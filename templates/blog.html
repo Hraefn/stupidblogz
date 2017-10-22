@@ -1,26 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<h2> Blog Posts </h2>
+
+    <div class="blog">
     {% for entry in entries %}
-    <h2> 
-        <a href="./blog?id={{entry.id}}">
-             {{ entry.name }}
+    
+    <p class="post-title"> 
+        <a class="post-title" href="./blog?id={{entry.id}}"> 
+            {{ entry.name }}
         </a>
-    </h2>
-    <p> 
-        {{ entry.content }}
-        <br>
-        <br>
-        <br>
-        <br>
-        <img src="http://www.urbanthreads.com/productImages/regularSize/UTH1105.jpg">
-        <br>
-        <br>
-        <br>
+    </p>
+    <p class="post-content"> 
+        {{ entry.content }} 
+        
+    </p>
+    <p class="post-author"> Written By:
+        <a href="/blog?user={{entry.owner.email}}">
+            {{ entry.owner.email }} 
+        </a>
     </p>
     {% endfor %}
-
-    {{ qry }}
-    
+    </div>
 
 {% endblock %}

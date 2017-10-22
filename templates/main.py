@@ -6,7 +6,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:stupidblog@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-app.secret_key = 'CanSheJuggle3?'
+app.secret_key = '1L0v3Sc0tt'
 
 
 class Blog(db.Model):
@@ -21,86 +21,34 @@ class Blog(db.Model):
         self.content = content
         self.owner = owner
 
-
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True)
+    email = db.Column(db.String(120))
     password = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='owner')
+    blogs = db.relationship('Blog', backref='owner') 
 
     def __init__(self, email, password):
         self.email = email
-        self.password = password        
+        self.password = password                 
 
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup', 'index', 'blog', 'logout']
+    allowed_routes = ['login', 'signup', 'index']
     if request.endpoint not in allowed_routes and 'email' not in session:
-        flash("Please log in to see that page.", 'error')
+        flash("Please log in to access that page.", 'error')
         return redirect('/login')
 
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     users = User.query.all()
+    
     return render_template("index.html",
         users=users)
 
-
-@app.route('/blog', methods=['POST', 'GET'])
-def blog():
-
-#    owner = User.query.filter_by(email=session['email']).first()
-    qry_id = request.args.get('id')
-    username = request.args.get('user')
-
-    if qry_id == None and username == None:
-        entries = Blog.query.all()
-        return render_template("blog.html",
-            entries=entries)
-
-    elif qry_id == None:
-        blog_user = User.query.filter_by(email=username).first()
-        user_id = blog_user.id
-        entries = Blog.query.filter_by(owner_id=user_id).all() 
-        return render_template("blog.html",
-            entries=entries)
-
-    else:
-        entries = Blog.query.filter_by(id=qry_id).all()
-        return render_template("blog.html",
-            entries=entries)
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
-        
-        if user and user.password == password:
-            session['email'] = email
-            flash("You have successfully logged in.", 'success')
-            return redirect('/newpost')
-        
-        elif email == "":
-            flash("Please enter a valid email.", 'error')
-
-        elif password == "":
-            flash("Please enter a password.", 'error')
-
-        elif user == None:
-            flash("That user ID doesn't exist, please register or try again.", 'error')
-
-        elif user.password != password:
-            flash("Your password is incorrect.", 'error')
-
-    return render_template('login.html')
-
-
-@app.route('/signup', methods=['POST', 'GET'])
+app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
         email = request.form['email']
@@ -136,6 +84,33 @@ def signup():
     return render_template('signup.html')
 
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.password == password:
+            session['email'] = email
+            flash("You have successfully logged in", 'success')
+            return redirect('/newpost')
+        
+        elif email == "":
+            flash("Please enter a valid email", 'error')
+
+        elif password == "":
+            flash("Please enter a password", 'error')
+
+        elif user == None:
+            flash("That user ID doesn't exist, please register or try again.", 'error')
+
+        elif user.password != password:
+            flash("Your password is incorrect.", 'error')
+
+    return render_template('login.html')
+
+
 @app.route('/logout')
 def logout():
     if 'email' not in session:
@@ -159,11 +134,11 @@ def newpost():
 
         if post_title == "":
             errorcount += 1
-            flash("Your post must have a title.", 'error')
+            flash("You must have a title for your post.", 'error')
 
         if post_content == "":
             errorcount += 1
-            flash("Your post must contain content.", 'error')  
+            flash("You must have content for your post.", 'error')  
     
         if errorcount > 0:
             return render_template('newpost.html',
@@ -180,6 +155,7 @@ def newpost():
 
     else:
         return render_template('newpost.html')
+
 
 if __name__ == '__main__':
     app.run()

@@ -1,47 +1,267 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{{title}}</title>
+        <title> Blogz </title>
         <style>
-            p {
-                text-align: center;
+            html {
+                background-color: rgb(36, 25, 136);
+                height: 100%;
             }
-            h1 {
-                text-align: center;
-                color: steelblue;
-            }
-            h2 {
-                text-align: center;
-                color: steelblue;
-            }
-            form {
-                background-color: #eee;
-                padding: 20px;
+            body {
+                font-family: sans-serif;
+                width: 1000px;
+                min-height: 100%;
                 margin: 0 auto;
-                width: 540px;
+                padding-top: 20px;
+                background-color: rgba(18, 130, 221, 0.384)
+            }
+
+            .blog {
+                text-align: left;
+                width: 500px;
+            }
+            .error {
+                color: rgb(177, 21, 21);
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .success {
+                color: rgb(8, 193, 250);
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .post + .post {
+                margin-top: 20px;
+            }
+
+            .post-title {
+                font-weight: bold;
+                font-size: 20px;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
+            .post-title a:link { 
+                color: #1cada1;
+            }
+            
+            .post-title a:visited { 
+                color: #1cada1;
+            }
+
+            .post-content {
+                margin: 10px;
+                font-size: 16px;
+                text-align: left;
+            }
+
+            .post-author {
+                margin: 10px;
+                font-style: italic;
+                font-size: 10px;
+                text-align: left;
+            }
+
+            .username {
+                font-weight: bold;
+                font-size: 16px;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            
+            .username a:link { 
+                color: #1cada1;
+            }
+
+            .username a:visited { 
+                color: #1cada1;
+            }
+            
+            a:link { 
+               color: rgb(139, 155, 250);
+            }
+            
+            a:visited { 
+               color: rgb(139, 155, 250);
+            }
+
+            div {
+                background-color: #dadada;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 7px;
+                padding-bottom: 7px;
+                margin: auto;
+                width: 600px;
+                border-radius: 10px;
+            }
+
+            form {
+                background-color: #dadada;
+                padding: 20px;
+                padding-bottom: 20px;
+                margin: auto;
+                width: 450px;
                 font: 16px sans-serif;
                 border-radius: 10px;
             }
+
+            form input[type=submit] {
+                width: 20%;
+                font-size: 14px;
+                margin: auto;
+            }
+
+            form input[type=text] {
+                width: 440px;
+                font-size: 14px;
+                margin: auto;
+                display: block;
+            }
+
+            form label {
+                font-size: 14px;
+                font-weight: bold;
+                display: inline-block;
+            }
+
+            h1 {
+                text-align: center;
+                color: #1cada1;
+            }
+
+            h2 {
+                text-align: center;
+                color: #ffffff;
+            }
+
+
+            h3 {
+                text-align: left;
+                color: #ffffff;
+            }
+
+            p {
+                text-align: center;
+                font-weight: bold;
+            }
+
+            input[type=text],
+            input[type=password],
+            input[type=email] {
+                width: 300px;
+                font-size: 14px;
+                padding: 2px;
+                margin: auto;
+                
+            }
+
+            input:focus {
+                border: 3px solid rgb(51, 120, 248);
+            }
+
+            td input[type=submit] {
+                width: 20%;
+                font-size: 14px;
+            }
+
+            td label {
+                display: block;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+
+            nav {
+                background-color: #dadada;
+                padding-left: 150px;
+                padding-right: 150px;
+            }
+
+            nav ul {
+                padding: 0;
+                display: inline-block;
+                text-align: center;
+                font-size: 18px;
+                font-family: arial;
+                font-weight: bold;
+            }
+
+            nav ul li {
+                list-style: none;
+                display: inline-block;
+                margin-right: 15px;
+                font-size: 16px;
+                font-family: arial;
+                font-weight: bold;
+            }
+
+            nav #user-account {
+                float: right;
+            }           
+            
+            table {
+                margin: 0 auto;
+            }
+
+            td {
+                text-align: right;
+            }
+
             textarea {
-                margin: 10px 0;
-                width: 540px;
-                height: 120px;
+                width: 440px;
+                height: 300px;
+                font-size: 14px;
+                margin: auto;
+                display: block;
             }
-            .error {
-                color: red;
+
+            ul {
+                list-style: none;
             }
+
+            ul li {
+                text-align: center;
+            }
+
         </style>
     </head>
 <body>
-    <h1>So she said "Blog, blog, blog..."</h1>
-    <p>
-        <a href="/blog">Blog Entries</a>
-        &nbsp &nbsp &nbsp &nbsp &nbsp 
-        <a href="/blogentry">Add a Post</a>
-    </p>
+    <h1>You Wanna Talk About It?</h1>
 
-    {% block content %}
-    {% endblock %}
+    <nav>
+        <ul id="user-account">USERS
+            <br>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li><a href="/signup">Register</a></li>
+        </ul>
+        <ul>BLOGS
+            <br>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog">All Posts</a></li>
+            <li><a href="/newpost">New Post</a></li>
+        </ul>
+    </nav>
+
+{% with messages = get_flashed_messages(with_categories=True) %}    
+    <p>
+    <ul>
+    {% for category,message in messages %}
+    <li class="{{category}}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+    </p>
+{% endwith %}
+
+{% block content %}
+{% endblock %}
 
 </body>
 </html>
